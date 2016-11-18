@@ -11,15 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.MediaController;
 
 import com.elvishew.xlog.XLog;
 
-import org.xellossryan.playerlib.widgets.IMediaController;
+import org.xellossryan.playerlib.widgets.AndroidMediaController;
 import org.xellossryan.playerlib.widgets.IjkVideoView;
+
+import java.io.File;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -36,6 +36,7 @@ public class PlayerActivity extends AppCompatActivity {
     private Uri mVideoUri;
     private org.xellossryan.playerlib.widgets.IjkVideoView myplayer;
     private android.support.v7.widget.Toolbar toolbar;
+    AndroidMediaController controller = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class PlayerActivity extends AppCompatActivity {
         // init player
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+
         Intent intent = getIntent();
         String intentAction = intent.getAction();
         XLog.d(intentAction);
@@ -85,52 +87,23 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         }
-        myplayer.setMediaController(new IMediaController() {
-            @Override
-            public void hide() {
-                getSupportActionBar().hide();
-            }
-
-            @Override
-            public boolean isShowing() {
-                return getSupportActionBar().isShowing();
-            }
-
-            @Override
-            public void setAnchorView(View view) {
-
-            }
-
-            @Override
-            public void setEnabled(boolean enabled) {
-
-            }
-
-            @Override
-            public void setMediaPlayer(MediaController.MediaPlayerControl player) {
-
-            }
-
-            @Override
-            public void show(int timeout) {
-                getSupportActionBar().show();
-            }
-
-            @Override
-            public void show() {
-
-            }
-
-            @Override
-            public void showOnce(View view) {
-
-            }
-        });
-        if (mVideoPath != null)
+        controller = new AndroidMediaController(this);
+        controller.setSupportActionBar(getSupportActionBar());
+        myplayer.setMediaController(controller);
+        if (mVideoPath != null) {
+            File file = new File(mVideoPath);
+            Log.w(TAG,"File path : " + mVideoPath);
+            Log.d(TAG,"File title : " + Uri.decode(file.getName()));
+            getSupportActionBar().setTitle(file.getName());
             myplayer.setVideoPath(mVideoPath);
-        else if (mVideoUri != null)
+        } else if (mVideoUri != null) {
+
+            String lastPathSegment = mVideoUri.getLastPathSegment();
+            getSupportActionBar().setTitle(lastPathSegment);
+            Log.w(TAG,"File URI : " + mVideoUri.toString());
+            Log.d(TAG,"URI title : " + Uri.decode(lastPathSegment));
             myplayer.setVideoURI(mVideoUri);
-        else {
+        } else {
             Log.e(TAG, "Null Data Source\n");
             finish();
             return;
