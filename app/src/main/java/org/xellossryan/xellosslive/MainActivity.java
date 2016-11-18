@@ -20,5 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("视频播放器");
         Toast.makeText(this, "请通过图库或其他应用打开视频", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
