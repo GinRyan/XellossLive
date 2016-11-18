@@ -1,19 +1,20 @@
 package org.xellossryan.xellosslive;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+
+import org.xellossryan.playerlib.widgets.IjkVideoView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private org.xellossryan.playerlib.widgets.IjkVideoView myplayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.myplayer = (IjkVideoView) findViewById(R.id.myplayer);
 
-    // Example of a call to a native method
-    TextView tv = (TextView) findViewById(R.id.sample_text);
-    tv.setText(stringFromJNI());
     }
 
     /**
