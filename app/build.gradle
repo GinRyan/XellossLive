@@ -1,10 +1,10 @@
 apply plugin: "com.android.application"
 
 def compileSystemVersion = 24
-def minimumSystemVersion = 17
+def minimumSystemVersion = 14
 def buildSystemVersion = "24.0.3"
 def appCompatVersion = "24.2.1"
-
+def targetSystemVersion = 22
 def retrofitVersion = "2.1.0"
 def applicationIdStr = "org.xellossryan.xellosslive"
 def appVersionCode = 1
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId applicationIdStr
         minSdkVersion minimumSystemVersion
-        targetSdkVersion compileSystemVersion
+        targetSdkVersion targetSystemVersion
         versionCode appVersionCode
         versionName appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
