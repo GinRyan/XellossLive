@@ -34,7 +34,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.MediaController;
 import android.widget.TableLayout;
 
 import org.xellossryan.playerlib.R;
@@ -744,6 +743,12 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         } else {
             mMediaController.show();
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mMediaController.hide();
     }
 
     @Override

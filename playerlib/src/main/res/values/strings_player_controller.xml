@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lockscreen_transport_prev_description">"上一曲"</string>
+    <string name="lockscreen_transport_next_description">"下一曲"</string>
+    <string name="lockscreen_transport_pause_description">"暂停"</string>
+    <string name="lockscreen_transport_play_description">"播放"</string>
+    <string name="lockscreen_transport_stop_description">"停止"</string>
+    <string name="lockscreen_transport_rew_description">"快退"</string>
+    <string name="lockscreen_transport_ffw_description">"快进"</string>
+</resources>

@@ -17,7 +17,6 @@
 package org.xellossryan.playerlib.widgets;
 
 import android.view.View;
-import android.widget.MediaController;
 
 public interface IMediaController {
     void hide();

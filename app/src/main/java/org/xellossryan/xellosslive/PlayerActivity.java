@@ -87,21 +87,27 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         }
-        controller = new AndroidMediaController(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        controller = new AndroidMediaController(this, getWindow());
         controller.setSupportActionBar(getSupportActionBar());
         myplayer.setMediaController(controller);
         if (mVideoPath != null) {
             File file = new File(mVideoPath);
-            Log.w(TAG,"File path : " + mVideoPath);
-            Log.d(TAG,"File title : " + Uri.decode(file.getName()));
-            getSupportActionBar().setTitle(file.getName());
+            Log.w(TAG, "File path : " + mVideoPath);
+            Log.d(TAG, "File title : " + Uri.decode(file.getName()));
+            getSupportActionBar().setTitle(Uri.decode(file.getName()));
             myplayer.setVideoPath(mVideoPath);
         } else if (mVideoUri != null) {
 
             String lastPathSegment = mVideoUri.getLastPathSegment();
             getSupportActionBar().setTitle(lastPathSegment);
-            Log.w(TAG,"File URI : " + mVideoUri.toString());
-            Log.d(TAG,"URI title : " + Uri.decode(lastPathSegment));
+            Log.w(TAG, "File URI : " + mVideoUri.toString());
+            Log.d(TAG, "URI title : " + Uri.decode(lastPathSegment));
             myplayer.setVideoURI(mVideoUri);
         } else {
             Log.e(TAG, "Null Data Source\n");

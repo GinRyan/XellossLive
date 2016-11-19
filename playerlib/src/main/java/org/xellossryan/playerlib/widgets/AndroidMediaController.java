@@ -22,7 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.MediaController;
+import android.view.Window;
 
 import java.util.ArrayList;
 
@@ -34,13 +34,13 @@ public class AndroidMediaController extends MediaController implements IMediaCon
         initView(context);
     }
 
-    public AndroidMediaController(Context context, boolean useFastForward) {
-        super(context, useFastForward);
+    public AndroidMediaController(Context context, boolean useFastForward, Window window) {
+        super(context, useFastForward, window);
         initView(context);
     }
 
-    public AndroidMediaController(Context context) {
-        super(context);
+    public AndroidMediaController(Context context, Window window) {
+        super(context, window);
         initView(context);
     }
 
