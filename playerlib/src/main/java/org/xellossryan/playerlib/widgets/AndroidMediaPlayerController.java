@@ -22,25 +22,24 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.Window;
 
 import java.util.ArrayList;
 
-public class AndroidMediaController extends MediaController implements IMediaController {
+public class AndroidMediaPlayerController extends MediaPlayerController implements IMediaController {
     private ActionBar mActionBar;
 
-    public AndroidMediaController(Context context, AttributeSet attrs) {
+    public AndroidMediaPlayerController(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public AndroidMediaController(Context context, boolean useFastForward, Window window) {
-        super(context, useFastForward, window);
+    public AndroidMediaPlayerController(Context context, boolean useFastForward) {
+        super(context, useFastForward);
         initView(context);
     }
 
-    public AndroidMediaController(Context context, Window window) {
-        super(context, window);
+    public AndroidMediaPlayerController(Context context) {
+        super(context);
         initView(context);
     }
 

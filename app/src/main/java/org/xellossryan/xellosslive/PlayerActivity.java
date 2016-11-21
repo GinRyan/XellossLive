@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 import com.elvishew.xlog.XLog;
 
-import org.xellossryan.playerlib.widgets.AndroidMediaController;
+import org.xellossryan.playerlib.widgets.AndroidMediaPlayerController;
 import org.xellossryan.playerlib.widgets.IjkVideoView;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public class PlayerActivity extends AppCompatActivity {
     private Uri mVideoUri;
     private org.xellossryan.playerlib.widgets.IjkVideoView myplayer;
     private android.support.v7.widget.Toolbar toolbar;
-    AndroidMediaController controller = null;
+    AndroidMediaPlayerController controller = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class PlayerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String intentAction = intent.getAction();
         XLog.d(intentAction);
+
         if (!TextUtils.isEmpty(intentAction)) {
             if (intentAction.equals(Intent.ACTION_VIEW)) {
                 mVideoPath = intent.getDataString();
@@ -93,7 +94,7 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        controller = new AndroidMediaController(this, getWindow());
+        controller = new AndroidMediaPlayerController(this);
         controller.setSupportActionBar(getSupportActionBar());
         myplayer.setMediaController(controller);
         if (mVideoPath != null) {

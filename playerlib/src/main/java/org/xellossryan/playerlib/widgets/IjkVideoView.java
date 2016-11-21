@@ -55,7 +55,7 @@ import tv.danmaku.ijk.media.player.misc.IMediaFormat;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.player.misc.IjkMediaFormat;
 
-public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
+public class IjkVideoView extends FrameLayout implements MediaPlayerControlEvent {
     private String TAG = "IjkVideoView";
     // settable by the client
     private Uri mUri;
@@ -349,7 +349,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     private void attachMediaController() {
         if (mMediaPlayer != null && mMediaController != null) {
-            mMediaController.setMediaPlayer(this);
+            mMediaController.setMediaPlayerControllerInterface(this);
             View anchorView = this.getParent() instanceof View ?
                     (View) this.getParent() : this;
             mMediaController.setAnchorView(anchorView);

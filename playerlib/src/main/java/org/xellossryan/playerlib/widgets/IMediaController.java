@@ -27,7 +27,7 @@ public interface IMediaController {
 
     void setEnabled(boolean enabled);
 
-    void setMediaPlayer(MediaController.MediaPlayerControl player);
+    void setMediaPlayerControllerInterface(MediaPlayerControlEvent player);
 
     void show(int timeout);
 

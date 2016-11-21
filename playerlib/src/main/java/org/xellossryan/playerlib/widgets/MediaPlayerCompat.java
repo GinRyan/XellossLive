@@ -21,6 +21,10 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.MediaPlayerProxy;
 import tv.danmaku.ijk.media.player.TextureMediaPlayer;
 
+/**
+ * Media player compat class, which can be selected as specified player instance.
+ *
+ */
 public class MediaPlayerCompat {
     public static String getName(IMediaPlayer mp) {
         if (mp == null) {
