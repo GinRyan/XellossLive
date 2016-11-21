@@ -16,10 +16,14 @@
 
 package org.xellossryan.playerlib.widgets;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,11 +34,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.FrameLayout;
-import android.widget.*;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-
+import android.widget.TextView;
 
 import org.xellossryan.playerlib.R;
 
@@ -76,7 +80,6 @@ public class MediaController extends FrameLayout {
     private View mAnchor;
     private View mRoot;
     private WindowManager mWindowManager;
-    private Window mWindow;
     private ViewGroup mDecor;
     private WindowManager.LayoutParams mDecorLayoutParams;
     private SeekBar mProgress;
@@ -95,6 +98,8 @@ public class MediaController extends FrameLayout {
     private ImageButton mRewButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
+    private ImageButton mFullscreenButton;
+
     private CharSequence mPlayDescription;
     private CharSequence mPauseDescription;
 
@@ -117,7 +122,6 @@ public class MediaController extends FrameLayout {
         super(context);
         mContext = context;
         mUseFastForward = useFastForward;
-        mWindow = phoneWindow;
         initFloatingWindowLayout();
         initFloatingWindow();
     }
@@ -128,21 +132,13 @@ public class MediaController extends FrameLayout {
 
     private void initFloatingWindow() {
         mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-        //mWindow.setWindowManager(mWindowManager, m, null);
-        //useless
-        //mWindow.requestFeature(Window.FEATURE_NO_TITLE);
         mDecor = new FrameLayout(mContext);
         mDecor.setOnTouchListener(mTouchListener);
-        mWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        // While the media controller is up, the volume control keys should
-        // affect the media stream type
-        mWindow.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         setFocusable(true);
         setFocusableInTouchMode(true);
         setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         requestFocus();
-        //mWindowManager.addView(this,mDecorLayoutParams);
     }
 
     // Allocate and initialize the static parts of mDecorLayoutParams. Must
@@ -299,6 +295,11 @@ public class MediaController extends FrameLayout {
             mProgress.setMax(1000);
         }
 
+        mFullscreenButton = (ImageButton) v.findViewById(R.id.fullscreen);
+        if (mFullscreenButton != null) {
+            mFullscreenButton.setOnClickListener(onFullScreenPressed);
+        }
+
         mEndTime = (TextView) v.findViewById(R.id.time);
         mCurrentTime = (TextView) v.findViewById(R.id.time_current);
         mFormatBuilder = new StringBuilder();
@@ -306,6 +307,7 @@ public class MediaController extends FrameLayout {
 
         installPrevNextListeners();
     }
+
 
     /**
      * Show the controller on screen. It will go away
@@ -666,6 +668,22 @@ public class MediaController extends FrameLayout {
             show(sDefaultTimeout);
         }
     };
+
+    private View.OnClickListener onFullScreenPressed = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //TODO Fullscreen
+            if (mContext instanceof Activity) {
+                Activity activity = (Activity) mContext;
+                if (activity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            }
+        }
+    };
+
 
     private void installPrevNextListeners() {
         if (mNextButton != null) {

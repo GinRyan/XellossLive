@@ -2,6 +2,7 @@ package org.xellossryan.xellosslive.app;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
@@ -16,6 +17,6 @@ public class XLiveApp extends Application {
     public void onCreate() {
         super.onCreate();
         XLog.init(BuildConfig.DEBUG ? LogLevel.ALL : LogLevel.NONE);
-        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 }
